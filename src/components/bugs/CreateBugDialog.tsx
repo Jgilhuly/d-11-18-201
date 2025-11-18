@@ -57,12 +57,12 @@ export function CreateBugDialog({ open, onOpenChange }: CreateBugDialogProps) {
 
   const onSubmit = async (data: BugFormData) => {
     if (!user) {
-      notifications.error('Authentication required', 'Please log in to report a bug')
+      notifications.error(bugStrings.authenticationRequired, bugStrings.loginToReportBug)
       return
     }
     
     setIsSubmitting(true)
-    const loadingToast = notifications.loading('Creating bug report...')
+    const loadingToast = notifications.loading(bugStrings.creatingBugReport)
     
     try {
       await createBug({
@@ -79,8 +79,8 @@ export function CreateBugDialog({ open, onOpenChange }: CreateBugDialogProps) {
       notifications.dismiss(loadingToast)
       console.error('Failed to create bug:', error)
       notifications.error(
-        'Error',
-        error instanceof Error ? error.message : 'Please try again later'
+        strings.notifications.error,
+        error instanceof Error ? error.message : bugStrings.tryAgainLater
       )
     } finally {
       setIsSubmitting(false)

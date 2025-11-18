@@ -125,7 +125,13 @@ export const englishStrings = {
     noContentYet: 'No content yet',
     moviesAndShows: 'movies and shows',
     noFeaturedContent: 'No featured content',
-    currentlyFeatured: 'currently featured'
+    currentlyFeatured: 'currently featured',
+    bugReports: 'Bug Reports',
+    noBugsReported: 'No bugs reported',
+    openBugs: 'Open Bugs',
+    allBugsResolved: 'All bugs resolved',
+    openBugsCount: 'open',
+    outOfTotal: 'out of {total} total'
   },
   contentRequests: {
     title: 'Content Requests',
@@ -292,7 +298,18 @@ export const englishStrings = {
     exportToCSV: 'Export to CSV',
     exportSuccess: 'Bug reports exported successfully',
     exportError: 'Failed to export bug reports',
-    noBrowserDevice: 'Not specified'
+    noBrowserDevice: 'Not specified',
+    authenticationRequired: 'Authentication required',
+    loginToReportBug: 'Please log in to report a bug',
+    creatingBugReport: 'Creating bug report...',
+    tryAgainLater: 'Please try again later',
+    unassigned: 'Unassigned',
+    dashboardBugReports: 'Bug Reports',
+    dashboardNoBugsReported: 'No bugs reported',
+    dashboardOpenBugs: 'Open Bugs',
+    dashboardAllBugsResolved: 'All bugs resolved',
+    dashboardOutOf: 'out of {total} total',
+    contentManager: 'Content Manager'
   },
   notifications: {
     success: 'Success',
@@ -440,7 +457,13 @@ export const spanishStrings = {
     noContentYet: 'No hay contenido aún',
     moviesAndShows: 'películas y series',
     noFeaturedContent: 'No hay contenido destacado',
-    currentlyFeatured: 'actualmente destacado'
+    currentlyFeatured: 'actualmente destacado',
+    bugReports: 'Reportes de Errores',
+    noBugsReported: 'No hay errores reportados',
+    openBugs: 'Errores Abiertos',
+    allBugsResolved: 'Todos los errores resueltos',
+    openBugsCount: 'abiertos',
+    outOfTotal: 'de {total} totales'
   },
   contentRequests: {
     title: 'Solicitudes de Contenido',
@@ -607,7 +630,18 @@ export const spanishStrings = {
     exportToCSV: 'Exportar a CSV',
     exportSuccess: 'Reportes de errores exportados exitosamente',
     exportError: 'Error al exportar reportes de errores',
-    noBrowserDevice: 'No especificado'
+    noBrowserDevice: 'No especificado',
+    authenticationRequired: 'Autenticación requerida',
+    loginToReportBug: 'Por favor inicia sesión para reportar un error',
+    creatingBugReport: 'Creando reporte de error...',
+    tryAgainLater: 'Por favor intenta de nuevo más tarde',
+    unassigned: 'Sin asignar',
+    dashboardBugReports: 'Reportes de Errores',
+    dashboardNoBugsReported: 'Sin errores reportados',
+    dashboardOpenBugs: 'Errores Abiertos',
+    dashboardAllBugsResolved: 'Todos los errores resueltos',
+    dashboardOutOf: 'de {total} total',
+    contentManager: 'Gestor de Contenido'
   },
   notifications: {
     success: 'Éxito',

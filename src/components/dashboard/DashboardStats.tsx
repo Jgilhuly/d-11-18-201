@@ -127,24 +127,24 @@ export function DashboardStats() {
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Bug Reports</CardTitle>
+          <CardTitle className="text-sm font-medium">{dashboardStrings.bugReports}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold text-card-foreground">{stats.totalBugs}</div>
           <p className="text-xs text-muted-foreground">
-            {stats.totalBugs === 0 ? 'No bugs reported' : `${stats.openBugs} open`}
+            {stats.totalBugs === 0 ? dashboardStrings.noBugsReported : `${stats.openBugs} ${dashboardStrings.openBugsCount}`}
           </p>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Open Bugs</CardTitle>
+          <CardTitle className="text-sm font-medium">{dashboardStrings.openBugs}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold text-card-foreground">{stats.openBugs}</div>
           <p className="text-xs text-muted-foreground">
-            {stats.openBugs === 0 ? 'All bugs resolved' : `out of ${stats.totalBugs} total`}
+            {stats.openBugs === 0 ? dashboardStrings.allBugsResolved : dashboardStrings.outOfTotal.replace('{total}', stats.totalBugs.toString())}
           </p>
         </CardContent>
       </Card>

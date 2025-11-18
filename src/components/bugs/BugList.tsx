@@ -227,11 +227,11 @@ export function BugList() {
                     onValueChange={(value) => handleAssignment(bug.id, value)}
                   >
                     <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Unassigned" />
+                      <SelectValue placeholder={bugStrings.unassigned} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="unassigned">Unassigned</SelectItem>
-                      <SelectItem value="manager">Content Manager</SelectItem>
+                      <SelectItem value="unassigned">{bugStrings.unassigned}</SelectItem>
+                      <SelectItem value="manager">{strings.common.contentManager}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
