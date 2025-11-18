@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { LanguageSwitcher } from '@/components/ui/language-switcher'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 
 export function Header() {
@@ -36,6 +37,7 @@ export function Header() {
           <span className="text-sm text-muted-foreground">
             {authStrings.welcomeUser.replace('{name}', user.name)}
           </span>
+          <ThemeToggle />
           <LanguageSwitcher />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
