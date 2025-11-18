@@ -146,3 +146,26 @@ export async function getContentById(contentId: string) {
   })
 }
 
+export async function exportContentToCSV() {
+  try {
+    const content = await getContent()
+
+    const csvData = content.map((item) => ({
+      name: item.name,
+      type: item.type,
+      genre: item.genre,
+      status: item.status,
+      releaseDate: item.releaseDate,
+      duration: item.duration,
+      rating: item.rating || '',
+      assignedTo: item.assignedUser?.name || item.assignedUser?.email || '',
+      createdDate: item.createdAt,
+    }))
+
+    return csvData
+  } catch (error) {
+    console.error('Failed to export content:', error)
+    throw new Error('Failed to export content. Please try again.')
+  }
+}
+

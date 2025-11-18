@@ -168,3 +168,25 @@ export async function getContentRequestById(contentRequestId: string) {
   })
 }
 
+export async function exportContentRequestsToCSV(viewerId: string, userRole: string) {
+  try {
+    const contentRequests = await getContentRequests(viewerId, userRole)
+
+    const csvData = contentRequests.map((request) => ({
+      title: request.title,
+      description: request.description,
+      priority: request.priority,
+      status: request.status,
+      category: request.category,
+      createdBy: request.viewer?.name || request.viewer?.email || '',
+      createdDate: request.createdAt,
+      reviewedBy: request.reviewer?.name || request.reviewer?.email || '',
+    }))
+
+    return csvData
+  } catch (error) {
+    console.error('Failed to export content requests:', error)
+    throw new Error('Failed to export content requests. Please try again.')
+  }
+}
+

@@ -163,7 +163,10 @@ export const englishStrings = {
     searchByTitle: 'Search by title',
     searchByDescription: 'Search by description',
     searchByUser: 'Search by team member',
-    clearSearch: 'Clear search'
+    clearSearch: 'Clear search',
+    exportToCSV: 'Export to CSV',
+    exportSuccess: 'Content requests exported successfully',
+    exportError: 'Failed to export content requests'
   },
   content: {
     title: 'Content Library',
@@ -207,7 +210,10 @@ export const englishStrings = {
     updateSuccess: 'Content updated successfully',
     deleteSuccess: 'Content removed successfully',
     assignSuccess: 'Content featured successfully',
-    unassignSuccess: 'Content unfeatured successfully'
+    unassignSuccess: 'Content unfeatured successfully',
+    exportToCSV: 'Export to CSV',
+    exportSuccess: 'Content exported successfully',
+    exportError: 'Failed to export content'
   },
   users: {
     title: 'Team Members',
@@ -429,7 +435,10 @@ export const spanishStrings = {
     searchByTitle: 'Buscar por título',
     searchByDescription: 'Buscar por descripción',
     searchByUser: 'Buscar por miembro del equipo',
-    clearSearch: 'Limpiar búsqueda'
+    clearSearch: 'Limpiar búsqueda',
+    exportToCSV: 'Exportar a CSV',
+    exportSuccess: 'Solicitudes exportadas exitosamente',
+    exportError: 'Error al exportar solicitudes'
   },
   content: {
     title: 'Biblioteca de Contenido',
@@ -473,7 +482,10 @@ export const spanishStrings = {
     updateSuccess: 'Contenido actualizado exitosamente',
     deleteSuccess: 'Contenido eliminado exitosamente',
     assignSuccess: 'Contenido destacado exitosamente',
-    unassignSuccess: 'Contenido sin destacar exitosamente'
+    unassignSuccess: 'Contenido sin destacar exitosamente',
+    exportToCSV: 'Exportar a CSV',
+    exportSuccess: 'Contenido exportado exitosamente',
+    exportError: 'Error al exportar contenido'
   },
   users: {
     title: 'Miembros del Equipo',

@@ -1,15 +1,18 @@
 'use client'
 
 import { useCallback, useEffect, useState, useMemo } from 'react'
+import { Download } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useLocalizedStrings } from '@/contexts/LocaleContext'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { convertToCSV, downloadCSV, generateFilename } from '@/lib/utils/csv-export'
 import { getPriorities, getContentRequestStatuses } from '@/lib/constants'
-import { getContentRequests, updateContentRequestStatus, assignContentRequest } from '@/lib/actions/content-requests'
+import { exportContentRequestsToCSV, getContentRequests, updateContentRequestStatus, assignContentRequest } from '@/lib/actions/content-requests'
 import { formatDistanceToNow } from 'date-fns'
+import { notifications } from '@/lib/notifications'
 import { ContentRequestSearchBar } from './ContentRequestSearchBar'
 
 interface ContentRequest {
@@ -30,6 +33,7 @@ export function ContentRequestList() {
   const strings = getStrings()
   const [contentRequests, setContentRequests] = useState<ContentRequest[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isExporting, setIsExporting] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
   const loadContentRequests = useCallback(async () => {
@@ -101,6 +105,38 @@ export function ContentRequestList() {
     setSearchQuery('')
   }, [])
 
+  const handleExport = async () => {
+    if (!user) return
+
+    setIsExporting(true)
+    const loadingToast = notifications.loading(strings.common.loading)
+
+    try {
+      const csvData = await exportContentRequestsToCSV(user.id, user.role)
+
+      const csv = convertToCSV(csvData, [
+        { key: 'title', header: strings.contentRequests.titleLabel },
+        { key: 'description', header: strings.contentRequests.descriptionLabel },
+        { key: 'priority', header: strings.contentRequests.priorityLabel },
+        { key: 'status', header: strings.contentRequests.statusLabel },
+        { key: 'category', header: strings.contentRequests.genreLabel },
+        { key: 'createdBy', header: strings.contentRequests.createdBy },
+        { key: 'createdDate', header: strings.common.createdAt },
+        { key: 'reviewedBy', header: strings.contentRequests.reviewedBy },
+      ])
+
+      downloadCSV(csv, generateFilename('content-requests'))
+      notifications.dismiss(loadingToast)
+      notifications.success(strings.notifications.success, strings.contentRequests.exportSuccess)
+    } catch (error) {
+      notifications.dismiss(loadingToast)
+      console.error('Failed to export content requests:', error)
+      notifications.error(strings.notifications.error, strings.contentRequests.exportError)
+    } finally {
+      setIsExporting(false)
+    }
+  }
+
   if (isLoading) {
     return (
       <Card>
@@ -149,7 +185,15 @@ export function ContentRequestList() {
   return (
     <div className="space-y-4">
       {user?.role === 'CONTENT_MANAGER' && (
-        <div className="flex justify-end">
+        <div className="flex justify-between items-center gap-4">
+          <Button
+            onClick={handleExport}
+            disabled={isExporting || contentRequests.length === 0}
+            variant="outline"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            {strings.contentRequests.exportToCSV}
+          </Button>
           <ContentRequestSearchBar 
             onSearch={handleSearch}
             onClear={handleClearSearch}

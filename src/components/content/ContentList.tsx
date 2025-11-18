@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { Download } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useLocalizedStrings } from '@/contexts/LocaleContext'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { convertToCSV, downloadCSV, generateFilename } from '@/lib/utils/csv-export'
 import { getContentStatuses } from '@/lib/constants'
-import { getContent, updateContentStatus, assignContent } from '@/lib/actions/content'
+import { exportContentToCSV, getContent, updateContentStatus, assignContent } from '@/lib/actions/content'
 import { formatDistanceToNow } from 'date-fns'
 import { TableSkeleton } from '@/components/ui/loading-skeletons'
 import { notifications, NOTIFICATION_MESSAGES } from '@/lib/notifications'
@@ -34,6 +37,7 @@ export function ContentList() {
   const strings = getStrings()
   const [content, setContent] = useState<Content[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isExporting, setIsExporting] = useState(false)
 
   useEffect(() => {
     loadContent()
@@ -84,6 +88,37 @@ export function ContentList() {
     return statusData?.color || 'bg-muted text-muted-foreground'
   }
 
+  const handleExport = async () => {
+    setIsExporting(true)
+    const loadingToast = notifications.loading(strings.common.loading)
+
+    try {
+      const csvData = await exportContentToCSV()
+
+      const csv = convertToCSV(csvData, [
+        { key: 'name', header: strings.content.nameLabel },
+        { key: 'type', header: strings.content.typeLabel },
+        { key: 'genre', header: strings.content.genreLabel },
+        { key: 'status', header: strings.content.statusLabel },
+        { key: 'releaseDate', header: strings.content.releaseDateLabel },
+        { key: 'duration', header: strings.content.durationLabel },
+        { key: 'rating', header: strings.content.ratingLabel },
+        { key: 'assignedTo', header: strings.content.assignedTo },
+        { key: 'createdDate', header: strings.common.createdAt },
+      ])
+
+      downloadCSV(csv, generateFilename('content'))
+      notifications.dismiss(loadingToast)
+      notifications.success(strings.notifications.success, strings.content.exportSuccess)
+    } catch (error) {
+      notifications.dismiss(loadingToast)
+      console.error('Failed to export content:', error)
+      notifications.error(strings.notifications.error, strings.content.exportError)
+    } finally {
+      setIsExporting(false)
+    }
+  }
+
   if (isLoading) {
     return <TableSkeleton rows={3} />
   }
@@ -102,6 +137,18 @@ export function ContentList() {
 
   return (
     <div className="space-y-4">
+      {user?.role === 'CONTENT_MANAGER' && content.length > 0 && (
+        <div className="flex justify-end">
+          <Button
+            onClick={handleExport}
+            disabled={isExporting}
+            variant="outline"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            {strings.content.exportToCSV}
+          </Button>
+        </div>
+      )}
       {content.map((item) => (
         <Card key={item.id}>
           <CardHeader>
