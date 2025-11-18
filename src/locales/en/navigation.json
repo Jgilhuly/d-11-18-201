@@ -1,0 +1,23 @@
+{
+  "dashboard": "Dashboard",
+  "tickets": "Tickets",
+  "assets": "Assets",
+  "users": "Users",
+  "settings": "Settings",
+  
+  "welcomeTitle": "Welcome to IT Service Desk",
+  "welcomeSubtitle": "Manage tickets, assets, and software licenses efficiently",
+  
+  "ticketsCardTitle": "Tickets",
+  "ticketsCardDescription": "Create and manage support tickets",
+  "assetsCardTitle": "Assets",
+  "assetsCardDescription": "Track hardware and equipment",
+  "usersCardTitle": "Users",
+  "usersCardDescription": "Manage user accounts and permissions",
+  
+  "viewTickets": "View Tickets",
+  "viewAssets": "View Assets",
+  "manageUsers": "Manage Users",
+  
+  "itServiceDesk": "IT Service Desk"
+}

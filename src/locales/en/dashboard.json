@@ -1,0 +1,31 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Overview of your IT service desk operations",
+  
+  "totalTickets": "Total Tickets",
+  "openTickets": "Open Tickets",
+  "totalAssets": "Total Assets",
+  "assignedAssets": "Assigned Assets",
+  
+  "noTicketsYet": "No tickets yet",
+  "ticketsOpen": "{count} open",
+  "noOpenTickets": "No open tickets",
+  "requiresAttention": "Requires attention",
+  "noAssetsYet": "No assets yet",
+  "hardwareAndSoftware": "Hardware & software",
+  "noAssignedAssets": "No assigned assets",
+  "currentlyInUse": "Currently in use",
+  
+  "quickActions": "Quick Actions",
+  "createTicket": "Create Ticket",
+  "addAsset": "Add Asset",
+  "addUser": "Add User",
+  
+  "recentTickets": "Recent Tickets",
+  "viewAll": "View All",
+  "loadingRecentTickets": "Loading recent tickets...",
+  "noTicketsMessage": "No tickets yet. Create your first ticket to get started.",
+  
+  "statsLoadError": "Failed to load dashboard statistics",
+  "statsLoadErrorDescription": "Please refresh the page to try again"
+}

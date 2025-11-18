@@ -1,0 +1,43 @@
+{
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "delete": "Eliminar",
+  "edit": "Editar",
+  "create": "Crear",
+  "update": "Actualizar",
+  "submit": "Enviar",
+  "loading": "Cargando...",
+  
+  "name": "Nombre",
+  "description": "Descripción",
+  "status": "Estado",
+  "created": "Creado",
+  "type": "Tipo",
+  "category": "Categoría",
+  "email": "Correo electrónico",
+  "password": "Contraseña",
+  
+  "noData": "No se encontraron datos",
+  "noDataFound": "No se encontraron datos.",
+  "loadingGeneric": "Cargando...",
+  
+  "required": "Este campo es obligatorio",
+  "invalidEmail": "Dirección de correo electrónico inválida",
+  
+  "admin": "Administrador",
+  "endUser": "Usuario final",
+  
+  "priorityLow": "Baja",
+  "priorityMedium": "Media", 
+  "priorityHigh": "Alta",
+  "priorityCritical": "Crítica",
+  
+  "statusOpen": "Abierto",
+  "statusInProgress": "En progreso",
+  "statusResolved": "Resuelto", 
+  "statusClosed": "Cerrado",
+  "statusAvailable": "Disponible",
+  "statusAssigned": "Asignado",
+  "statusUnderMaintenance": "En mantenimiento",
+  "statusRetired": "Retirado"
+}

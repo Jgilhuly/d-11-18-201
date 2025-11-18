@@ -1,0 +1,39 @@
+{
+  "title": "Activos",
+  "createTitle": "Crear nuevo activo",
+  "editTitle": "Editar activo",
+  
+  "assetName": "Nombre del activo",
+  "assetNamePlaceholder": "Ingresa el nombre del activo",
+  "assetDescription": "Descripción",
+  "assetDescriptionPlaceholder": "Describe el activo",
+  "assetType": "Tipo de activo",
+  "assetTypePlaceholder": "Selecciona el tipo",
+  "serialNumber": "Número de serie",
+  "serialNumberPlaceholder": "Ingresa el número de serie",
+  "assignedTo": "Asignado a",
+  "assignedToPlaceholder": "Selecciona un usuario",
+  "location": "Ubicación",
+  "locationPlaceholder": "Ingresa la ubicación",
+  
+  "assetId": "ID del activo",
+  "purchaseDate": "Fecha de compra",
+  "warrantyExpiry": "Vencimiento de garantía",
+  "lastMaintenance": "Último mantenimiento",
+  
+  "noAssetsFound": "No se encontraron activos.",
+  "loadingAssets": "Cargando activos...",
+  "errorLoadingAssets": "Error al cargar activos",
+  
+  "assetCreated": "Activo creado exitosamente",
+  "assetUpdated": "Activo actualizado exitosamente",
+  "assetDeleted": "Activo eliminado exitosamente",
+  
+  "confirmDelete": "¿Estás seguro de que quieres eliminar este activo?",
+  "deleteAsset": "Eliminar activo",
+  
+  "typeHardware": "Hardware",
+  "typeSoftware": "Software",
+  "typeLicense": "Licencia",
+  "typePeripheral": "Periférico"
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Panel de control",
+  "welcomeMessage": "Bienvenido a tu panel de control",
+  
+  "totalTickets": "Total de tickets",
+  "openTickets": "Tickets abiertos",
+  "totalAssets": "Total de activos",
+  "totalUsers": "Total de usuarios",
+  
+  "noTicketsFound": "No se encontraron tickets",
+  "noAssetsFound": "No se encontraron activos",
+  "errorLoadingStats": "Error al cargar estadísticas",
+  
+  "recentTickets": "Tickets recientes",
+  "quickActions": "Acciones rápidas",
+  
+  "createTicket": "Crear ticket",
+  "createAsset": "Crear activo",
+  "createUser": "Crear usuario",
+  
+  "ticketsOverview": "Resumen de tickets",
+  "assetsOverview": "Resumen de activos",
+  "systemHealth": "Salud del sistema"
+}

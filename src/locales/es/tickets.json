@@ -1,0 +1,30 @@
+{
+  "title": "Tickets",
+  "createTitle": "Crear nuevo ticket",
+  "editTitle": "Editar ticket",
+  
+  "ticketTitle": "Título del ticket",
+  "ticketTitlePlaceholder": "Ingresa el título del ticket",
+  "ticketDescription": "Descripción",
+  "ticketDescriptionPlaceholder": "Describe el problema o solicitud",
+  "priority": "Prioridad",
+  "priorityPlaceholder": "Selecciona la prioridad",
+  "assignedTo": "Asignado a",
+  "assignedToPlaceholder": "Selecciona un usuario",
+  
+  "ticketNumber": "Ticket #",
+  "submittedBy": "Enviado por",
+  "createdAt": "Creado el",
+  "lastUpdated": "Última actualización",
+  
+  "noTicketsFound": "No se encontraron tickets.",
+  "loadingTickets": "Cargando tickets...",
+  "errorLoadingTickets": "Error al cargar tickets",
+  
+  "ticketCreated": "Ticket creado exitosamente",
+  "ticketUpdated": "Ticket actualizado exitosamente",
+  "ticketDeleted": "Ticket eliminado exitosamente",
+  
+  "confirmDelete": "¿Estás seguro de que quieres eliminar este ticket?",
+  "deleteTicket": "Eliminar ticket"
+}

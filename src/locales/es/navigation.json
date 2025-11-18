@@ -1,0 +1,23 @@
+{
+  "dashboard": "Panel de control",
+  "tickets": "Tickets",
+  "assets": "Activos",
+  "users": "Usuarios",
+  "settings": "Configuración",
+  
+  "welcomeTitle": "Bienvenido a la Mesa de Ayuda TI",
+  "welcomeSubtitle": "Gestiona tickets, activos y licencias de software de manera eficiente",
+  
+  "ticketsCardTitle": "Tickets",
+  "ticketsCardDescription": "Crear y gestionar tickets de soporte",
+  "assetsCardTitle": "Activos",
+  "assetsCardDescription": "Rastrear hardware y equipos",
+  "usersCardTitle": "Usuarios",
+  "usersCardDescription": "Gestionar cuentas de usuario y permisos",
+  
+  "viewTickets": "Ver tickets",
+  "viewAssets": "Ver activos",
+  "manageUsers": "Gestionar usuarios",
+  
+  "itServiceDesk": "Mesa de Ayuda TI"
+}

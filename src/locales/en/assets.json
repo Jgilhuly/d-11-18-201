@@ -1,0 +1,36 @@
+{
+  "title": "Assets",
+  "subtitle": "Manage hardware and software assets",
+  
+  "createNewAsset": "Create New Asset",
+  "createAssetDescription": "Add a new asset to the system. Fill in the details below.",
+  "nameLabel": "Name",
+  "namePlaceholder": "Enter asset name",
+  "typeLabel": "Type",
+  "serialNumberLabel": "Serial Number",
+  "serialNumberPlaceholder": "Enter serial number (optional)",
+  "selectType": "Select type",
+  
+  "loadingAssets": "Loading assets...",
+  "noAssetsFound": "No assets found.",
+  "noAssetsFoundMessage": "No assets found. Add your first asset to get started.",
+  
+  "typePrefix": "Type:",
+  "serialNumberPrefix": "S/N:",
+  "createdPrefix": "Created:",
+  "purchaseDatePrefix": "Purchase Date:",
+  "assignedToPrefix": "Assigned To:",
+  "statusLabel": "Status",
+  "assignToLabel": "Assign To",
+  "unassigned": "Unassigned",
+  
+  "nameRequired": "Name is required",
+  
+  "typeComputer": "Computer",
+  "typeMonitor": "Monitor",
+  "typeKeyboard": "Keyboard", 
+  "typeMouse": "Mouse",
+  "typeNetworkEquipment": "Network Equipment",
+  "typePrinter": "Printer",
+  "typeOther": "Other"
+}

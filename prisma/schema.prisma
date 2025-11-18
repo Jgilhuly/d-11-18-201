@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./prisma/dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  role      String   @default("VIEWER")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  contentRequests         ContentRequest[]         @relation("UserContentRequests")
+  reviewedContentRequests ContentRequest[]         @relation("ReviewedContentRequests")
+  content                 Content[]                @relation("UserContent")
+  subscriptions           Subscription[]          @relation("UserSubscriptions")
+
+  @@map("users")
+}
+
+model ContentRequest {
+  id          String       @id @default(cuid())
+  title       String
+  description String
+  priority    String       @default("MEDIUM")
+  category    String
+  status      String       @default("PENDING")
+  viewerId    String       @map("viewer_id")
+  reviewedBy  String?      @map("reviewed_by")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  viewer      User         @relation("UserContentRequests", fields: [viewerId], references: [id])
+  reviewer    User?        @relation("ReviewedContentRequests", fields: [reviewedBy], references: [id])
+
+  @@map("content_requests")
+}
+
+model Content {
+  id              String      @id @default(cuid())
+  name            String
+  type            String
+  genre           String
+  status          String      @default("AVAILABLE")
+  releaseDate    DateTime?   @map("release_date")
+  duration        Int?        // Duration in minutes
+  rating          String?     // e.g., "PG", "PG-13", "G"
+  posterUrl       String?     @map("poster_url")
+  description     String?
+  assignedUserId  String?     @map("assigned_user_id")
+  createdAt       DateTime    @default(now()) @map("created_at")
+
+  assignedUser   User?        @relation("UserContent", fields: [assignedUserId], references: [id])
+
+  @@map("content")
+}
+
+model Subscription {
+  id              String    @id @default(cuid())
+  name            String
+  planType        String    @map("plan_type")
+  price           Float?
+  expiryDate      DateTime? @map("expiry_date")
+  assignedUserId  String?   @map("assigned_user_id")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  assignedUser   User?        @relation("UserSubscriptions", fields: [assignedUserId], references: [id])
+
+  @@map("subscriptions")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  type      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("categories")
+}
+
+

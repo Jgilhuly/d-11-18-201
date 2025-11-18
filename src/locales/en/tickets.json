@@ -1,0 +1,36 @@
+{
+  "title": "Tickets",
+  "subtitle": "Manage support tickets and requests",
+  
+  "createNewTicket": "Create New Ticket",
+  "createTicketDescription": "Submit a new support ticket. Fill in the details below.",
+  "titleLabel": "Title",
+  "titlePlaceholder": "Brief description of the issue",
+  "descriptionLabel": "Description",
+  "descriptionPlaceholder": "Detailed description of the problem...",
+  "priorityLabel": "Priority",
+  "categoryLabel": "Category",
+  "selectPriority": "Select priority",
+  "selectCategory": "Select category",
+  
+  "loadingTickets": "Loading tickets...",
+  "noTicketsFound": "No tickets found.",
+  "noTicketsFoundMessage": "No tickets found. Create your first ticket to get started.",
+  
+  "categoryPrefix": "Category:",
+  "createdPrefix": "Created:",
+  "byPrefix": "By:",
+  "statusLabel": "Status",
+  "assignToLabel": "Assign To",
+  "unassigned": "Unassigned",
+  
+  "titleRequired": "Title is required",
+  "descriptionMinLength": "Description must be at least 10 characters",
+  "categoryRequired": "Category is required",
+  
+  "categoryHardware": "Hardware",
+  "categorySoftware": "Software",
+  "categoryNetwork": "Network",
+  "categoryAccess": "Access",
+  "categoryOther": "Other"
+}

@@ -1,0 +1,42 @@
+{
+  "title": "Usuarios",
+  "createTitle": "Crear nuevo usuario",
+  "editTitle": "Editar usuario",
+  
+  "fullName": "Nombre completo",
+  "fullNamePlaceholder": "Ingresa el nombre completo",
+  "email": "Correo electrónico",
+  "emailPlaceholder": "Ingresa el correo electrónico",
+  "role": "Rol",
+  "rolePlaceholder": "Selecciona el rol",
+  "department": "Departamento",
+  "departmentPlaceholder": "Ingresa el departamento",
+  
+  "userId": "ID de usuario",
+  "createdAt": "Creado el",
+  "lastLogin": "Último inicio de sesión",
+  "accountStatus": "Estado de cuenta",
+  
+  "noUsersFound": "No se encontraron usuarios.",
+  "loadingUsers": "Cargando usuarios...",
+  "errorLoadingUsers": "Error al cargar usuarios",
+  
+  "userCreated": "Usuario creado exitosamente",
+  "userUpdated": "Usuario actualizado exitosamente",
+  "userDeleted": "Usuario eliminado exitosamente",
+  "roleUpdated": "Rol actualizado exitosamente",
+  
+  "confirmDelete": "¿Estás seguro de que quieres eliminar este usuario?",
+  "deleteUser": "Eliminar usuario",
+  "changeRole": "Cambiar rol",
+  
+  "fullNameRequired": "El nombre completo es obligatorio",
+  "emailRequired": "El correo electrónico es obligatorio",
+  "roleRequired": "El rol es obligatorio",
+  "validEmailRequired": "Se requiere un correo electrónico válido",
+  
+  "adminRole": "Administrador",
+  "endUserRole": "Usuario final",
+  "roleAdmin": "Administrador",
+  "roleEndUser": "Usuario final"
+}

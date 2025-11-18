@@ -1,0 +1,64 @@
+---
+alwaysApply: true
+---
+
+# String Internationalization Requirements
+
+## CRITICAL: All User-Facing Strings Must Use Locale System
+
+ALL user-facing strings MUST be managed through the locale system - NO hardcoded plaintext strings allowed.
+
+### ❌ NEVER DO THIS:
+```typescript
+<button>Create Ticket</button>
+<div>Loading...</div>
+const message = "User created successfully"
+```
+
+### ✅ ALWAYS DO THIS:
+```typescript
+import { useLocalizedStrings } from '@/contexts/LocaleContext'
+
+export function MyComponent() {
+  const { getStrings } = useLocalizedStrings()
+  const strings = getStrings()
+  
+  return (
+    <button>{strings.tickets.createTitle}</button>
+    <div>{strings.common.loading}</div>
+  )
+}
+```
+
+### System Architecture:
+- **Locale Strings File**: [src/lib/locale-strings.ts](mdc:src/lib/locale-strings.ts) - All translations in one synchronous file
+- **Context Hook**: [src/contexts/LocaleContext.tsx](mdc:src/contexts/LocaleContext.tsx) - Provides `getStrings()` method
+- **Language Storage**: Uses localStorage for persistence, no URL-based routing
+
+### String Categories: 
+`common`, `auth`, `dashboard`, `tickets`, `assets`, `users`, `navigation`, `notifications`
+
+### For New Strings:
+1. Add to both `englishStrings` and `spanishStrings` objects in `src/lib/locale-strings.ts`
+2. Use via `useLocalizedStrings().getStrings().category.stringKey`
+3. Ensure identical structure across all language objects
+
+### String Interpolation:
+```typescript
+// For strings with placeholders like "Welcome, {name}!"
+const welcomeMessage = strings.auth.welcomeUser.replace('{name}', user.name)
+```
+
+### Usage Pattern:
+```typescript
+const { getStrings } = useLocalizedStrings()
+const strings = getStrings()
+
+// Access strings by category:
+strings.common.loading
+strings.tickets.createTitle  
+strings.auth.loginError
+strings.dashboard.totalTickets
+```
+
+**Always add new strings to ALL language objects in locale-strings.ts. The system is fully synchronous - no async calls needed.**

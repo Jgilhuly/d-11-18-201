@@ -1,0 +1,32 @@
+{
+  "ticketCreated": "Ticket creado exitosamente",
+  "ticketUpdated": "Ticket actualizado",
+  "ticketDeleted": "Ticket eliminado",
+  
+  "assetCreated": "Activo creado exitosamente", 
+  "assetUpdated": "Activo actualizado",
+  "assetDeleted": "Activo eliminado",
+  
+  "userCreated": "Usuario creado exitosamente",
+  "userUpdated": "Usuario actualizado", 
+  "userDeleted": "Usuario eliminado",
+  
+  "loginSuccess": "Inicio de sesión exitoso",
+  "loginError": "Error al iniciar sesión",
+  "logoutSuccess": "Sesión cerrada exitosamente",
+  
+  "saveSuccess": "Guardado exitosamente",
+  "saveError": "Error al guardar",
+  "deleteSuccess": "Eliminado exitosamente", 
+  "deleteError": "Error al eliminar",
+  "updateSuccess": "Actualizado exitosamente",
+  "updateError": "Error al actualizar",
+  
+  "networkError": "Error de red",
+  "serverError": "Error del servidor",
+  "unknownError": "Error desconocido",
+  
+  "validationError": "Error de validación",
+  "permissionDenied": "Permiso denegado",
+  "accessDenied": "Acceso denegado"
+}

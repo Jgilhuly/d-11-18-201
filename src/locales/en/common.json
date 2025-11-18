@@ -1,0 +1,43 @@
+{
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "create": "Create",
+  "update": "Update",
+  "submit": "Submit",
+  "loading": "Loading...",
+  
+  "name": "Name",
+  "description": "Description",
+  "status": "Status",
+  "created": "Created",
+  "type": "Type",
+  "category": "Category",
+  "email": "Email",
+  "password": "Password",
+  
+  "noData": "No data found",
+  "noDataFound": "No data found.",
+  "loadingGeneric": "Loading...",
+  
+  "required": "This field is required",
+  "invalidEmail": "Invalid email address",
+  
+  "admin": "Admin",
+  "endUser": "End User",
+  
+  "priorityLow": "Low",
+  "priorityMedium": "Medium", 
+  "priorityHigh": "High",
+  "priorityCritical": "Critical",
+  
+  "statusOpen": "Open",
+  "statusInProgress": "In Progress",
+  "statusResolved": "Resolved", 
+  "statusClosed": "Closed",
+  "statusAvailable": "Available",
+  "statusAssigned": "Assigned",
+  "statusUnderMaintenance": "Under Maintenance",
+  "statusRetired": "Retired"
+}

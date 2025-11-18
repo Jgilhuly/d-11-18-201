@@ -1,0 +1,31 @@
+{
+  "title": "Users",
+  "subtitle": "Manage user accounts and permissions",
+  
+  "createNewUser": "Create New User",
+  "createUserDescription": "Add a new user to the system. Fill in the details below.",
+  "fullNameLabel": "Full Name",
+  "fullNamePlaceholder": "Enter full name",
+  "emailLabel": "Email",
+  "emailPlaceholder": "Enter email address",
+  "passwordLabel": "Password",
+  "passwordPlaceholder": "Enter password",
+  "roleLabel": "Role",
+  "selectRole": "Select role",
+  
+  "loadingUsers": "Loading users...",
+  "noUsersFound": "No users found.",
+  "noUsersFoundMessage": "No users found. Add your first user to get started.",
+  
+  "createdPrefix": "Created:",
+  "ticketsPrefix": "Tickets:",
+  "assetsPrefix": "Assets:",
+  
+  "fullNameRequired": "Full name is required",
+  "emailRequired": "Email is required",
+  "passwordRequired": "Password is required",
+  "passwordMinLength": "Password must be at least 6 characters",
+  
+  "createUser": "Create User",
+  "creatingUser": "Creating..."
+}
