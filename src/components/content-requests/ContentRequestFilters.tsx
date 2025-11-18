@@ -222,7 +222,7 @@ export function ContentRequestFilters({
                     : date
                   updateFilter('dateRange', { start: date, end: endDate })
                 } else {
-                  updateFilter('dateRange', localFilters.dateRange?.end ? { start: localFilters.dateRange.end, end: localFilters.dateRange.end } : undefined)
+                  updateFilter('dateRange', localFilters.dateRange?.end ? { start: undefined, end: localFilters.dateRange.end } : undefined)
                 }
               }}
               onEndDateChange={(date) => {
@@ -232,7 +232,7 @@ export function ContentRequestFilters({
                     : date
                   updateFilter('dateRange', { start: startDate, end: date })
                 } else {
-                  updateFilter('dateRange', localFilters.dateRange?.start ? { start: localFilters.dateRange.start, end: localFilters.dateRange.start } : undefined)
+                  updateFilter('dateRange', localFilters.dateRange?.start ? { start: localFilters.dateRange.start, end: undefined } : undefined)
                 }
               }}
             />

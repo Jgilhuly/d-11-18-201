@@ -54,11 +54,12 @@ export async function getViewershipStats(): Promise<ViewershipStats> {
     metrics.forEach((metric) => {
       const existing = contentMap.get(metric.contentId)
       if (existing) {
-        const totalViews = existing.views + metric.views
+        const oldViews = existing.views
+        const totalViews = oldViews + metric.views
         existing.views = totalViews
         existing.watchTime += metric.watchTimeMinutes
         existing.completionRate =
-          (existing.completionRate * existing.views + metric.completionRate * metric.views) / totalViews
+          (existing.completionRate * oldViews + metric.completionRate * metric.views) / totalViews
       } else {
         contentMap.set(metric.contentId, {
           content: metric.content as Content,
