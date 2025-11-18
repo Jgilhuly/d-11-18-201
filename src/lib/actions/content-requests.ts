@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
 import { validateInput, createContentRequestSchema, updateContentRequestStatusSchema, assignContentRequestSchema, checkRateLimit } from '@/lib/validation'
+import { ContentRequestFilters } from '@/lib/types'
 
 export interface CreateContentRequestData {
   title: string
@@ -52,23 +53,45 @@ export async function createContentRequest(data: CreateContentRequestData) {
   }
 }
 
-export async function getContentRequests(viewerId: string, userRole: string) {
-  if (userRole === 'CONTENT_MANAGER') {
-    return await prisma.contentRequest.findMany({
-      include: {
-        viewer: {
-          select: { id: true, name: true, email: true }
-        },
-        reviewer: {
-          select: { id: true, name: true, email: true }
-        }
-      },
-      orderBy: { createdAt: 'desc' }
-    })
+export async function getContentRequests(viewerId: string, userRole: string, filters?: ContentRequestFilters) {
+  const whereClause: any = {}
+
+  if (userRole === 'VIEWER') {
+    whereClause.viewerId = viewerId
   }
-  
+
+  if (filters) {
+    if (filters.status && filters.status.length > 0) {
+      whereClause.status = { in: filters.status }
+    }
+
+    if (filters.priority && filters.priority.length > 0) {
+      whereClause.priority = { in: filters.priority }
+    }
+
+    if (filters.category && filters.category.length > 0) {
+      whereClause.category = { in: filters.category }
+    }
+
+    if (filters.reviewedBy && filters.reviewedBy.length > 0) {
+      whereClause.reviewedBy = { in: filters.reviewedBy }
+    }
+
+    if (filters.dateRange) {
+      whereClause.createdAt = {}
+      if (filters.dateRange.start) {
+        whereClause.createdAt.gte = new Date(filters.dateRange.start)
+      }
+      if (filters.dateRange.end) {
+        const endDate = new Date(filters.dateRange.end)
+        endDate.setHours(23, 59, 59, 999)
+        whereClause.createdAt.lte = endDate
+      }
+    }
+  }
+
   return await prisma.contentRequest.findMany({
-    where: { viewerId },
+    where: whereClause,
     include: {
       viewer: {
         select: { id: true, name: true, email: true }
@@ -170,7 +193,7 @@ export async function getContentRequestById(contentRequestId: string) {
 
 export async function exportContentRequestsToCSV(viewerId: string, userRole: string) {
   try {
-    const contentRequests = await getContentRequests(viewerId, userRole)
+    const contentRequests = await getContentRequests(viewerId, userRole, undefined)
 
     const csvData = contentRequests.map((request) => ({
       title: request.title,

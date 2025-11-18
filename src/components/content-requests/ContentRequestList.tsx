@@ -14,6 +14,8 @@ import { exportContentRequestsToCSV, getContentRequests, updateContentRequestSta
 import { formatDistanceToNow } from 'date-fns'
 import { notifications } from '@/lib/notifications'
 import { ContentRequestSearchBar } from './ContentRequestSearchBar'
+import { ContentViewToggle } from './ContentViewToggle'
+import { ContentRequestTableView } from './ContentRequestTableView'
 
 interface ContentRequest {
   id: string
@@ -35,6 +37,13 @@ export function ContentRequestList() {
   const [isLoading, setIsLoading] = useState(true)
   const [isExporting, setIsExporting] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [view, setView] = useState<'card' | 'table'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('contentRequestsView')
+      return (saved === 'card' || saved === 'table') ? saved : 'card'
+    }
+    return 'card'
+  })
 
   const loadContentRequests = useCallback(async () => {
     if (!user) return
@@ -103,6 +112,13 @@ export function ContentRequestList() {
 
   const handleClearSearch = useCallback(() => {
     setSearchQuery('')
+  }, [])
+
+  const handleViewChange = useCallback((newView: 'card' | 'table') => {
+    setView(newView)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('contentRequestsView', newView)
+    }
   }, [])
 
   const handleExport = async () => {
@@ -185,7 +201,7 @@ export function ContentRequestList() {
   return (
     <div className="space-y-4">
       {user?.role === 'CONTENT_MANAGER' && (
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex justify-between items-center gap-4 flex-wrap">
           <Button
             onClick={handleExport}
             disabled={isExporting || contentRequests.length === 0}
@@ -194,90 +210,106 @@ export function ContentRequestList() {
             <Download className="h-4 w-4 mr-2" />
             {strings.contentRequests.exportToCSV}
           </Button>
-          <ContentRequestSearchBar 
-            onSearch={handleSearch}
-            onClear={handleClearSearch}
-            searchQuery={searchQuery}
-          />
+          <div className="flex items-center gap-4">
+            <ContentViewToggle view={view} onViewChange={handleViewChange} />
+            <ContentRequestSearchBar 
+              onSearch={handleSearch}
+              onClear={handleClearSearch}
+              searchQuery={searchQuery}
+            />
+          </div>
         </div>
       )}
-      {filteredContentRequests.map((request) => (
-        <Card key={request.id}>
-          <CardHeader>
-            <div className="flex justify-between items-start">
-              <div className="space-y-1">
-                <CardTitle className="text-lg">{request.title}</CardTitle>
-                <CardDescription className="text-sm">
-                  {request.description.length > 100 
-                    ? `${request.description.substring(0, 100)}...` 
-                    : request.description
-                  }
-                </CardDescription>
-              </div>
-              <div className="flex gap-2">
-                <Badge className={getPriorityColor(request.priority)}>
-                  {getPriorities(strings).find(p => p.value === request.priority)?.label || request.priority}
-                </Badge>
-                <Badge className={getStatusColor(request.status)}>
-                  {getContentRequestStatuses(strings).find(s => s.value === request.status)?.label || request.status}
-                </Badge>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div>
-                <span className="font-medium">{strings.contentRequests.genreLabel}:</span> {request.category}
-              </div>
-              <div>
-                <span className="font-medium">{strings.common.createdAt}:</span> {formatDistanceToNow(new Date(request.createdAt), { addSuffix: true })}
-              </div>
-              <div>
-                <span className="font-medium">{strings.contentRequests.createdBy}:</span> {request.viewer.name}
-              </div>
-            </div>
-            
-            {user?.role === 'CONTENT_MANAGER' && (
-              <div className="mt-4 pt-4 border-t grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium">{strings.common.status}</label>
-                  <Select 
-                    value={request.status} 
-                    onValueChange={(value) => handleStatusChange(request.id, value)}
-                  >
-                    <SelectTrigger className="mt-1">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {getContentRequestStatuses(strings).map((status) => (
-                        <SelectItem key={status.value} value={status.value}>
-                          {status.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+      {!user || user.role !== 'CONTENT_MANAGER' ? (
+        <ContentViewToggle view={view} onViewChange={handleViewChange} />
+      ) : null}
+      {view === 'table' ? (
+        <ContentRequestTableView
+          contentRequests={filteredContentRequests}
+          onStatusChange={handleStatusChange}
+          onAssignment={handleAssignment}
+        />
+      ) : (
+        <div className="space-y-4">
+          {filteredContentRequests.map((request) => (
+            <Card key={request.id}>
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div className="space-y-1">
+                    <CardTitle className="text-lg">{request.title}</CardTitle>
+                    <CardDescription className="text-sm">
+                      {request.description.length > 100 
+                        ? `${request.description.substring(0, 100)}...` 
+                        : request.description
+                      }
+                    </CardDescription>
+                  </div>
+                  <div className="flex gap-2">
+                    <Badge className={getPriorityColor(request.priority)}>
+                      {getPriorities(strings).find(p => p.value === request.priority)?.label || request.priority}
+                    </Badge>
+                    <Badge className={getStatusColor(request.status)}>
+                      {getContentRequestStatuses(strings).find(s => s.value === request.status)?.label || request.status}
+                    </Badge>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <span className="font-medium">{strings.contentRequests.genreLabel}:</span> {request.category}
+                  </div>
+                  <div>
+                    <span className="font-medium">{strings.common.createdAt}:</span> {formatDistanceToNow(new Date(request.createdAt), { addSuffix: true })}
+                  </div>
+                  <div>
+                    <span className="font-medium">{strings.contentRequests.createdBy}:</span> {request.viewer.name}
+                  </div>
                 </div>
                 
-                <div>
-                  <label className="text-sm font-medium">{strings.contentRequests.reviewedBy}</label>
-                  <Select 
-                    value={request.reviewer?.id || 'unassigned'} 
-                    onValueChange={(value) => handleAssignment(request.id, value === 'unassigned' ? '' : value)}
-                  >
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Unassigned" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="unassigned">Unassigned</SelectItem>
-                      <SelectItem value="manager">Content Manager</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      ))}
+                {user?.role === 'CONTENT_MANAGER' && (
+                  <div className="mt-4 pt-4 border-t grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium">{strings.common.status}</label>
+                      <Select 
+                        value={request.status} 
+                        onValueChange={(value) => handleStatusChange(request.id, value)}
+                      >
+                        <SelectTrigger className="mt-1">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {getContentRequestStatuses(strings).map((status) => (
+                            <SelectItem key={status.value} value={status.value}>
+                              {status.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div>
+                      <label className="text-sm font-medium">{strings.contentRequests.reviewedBy}</label>
+                      <Select 
+                        value={request.reviewer?.id || 'unassigned'} 
+                        onValueChange={(value) => handleAssignment(request.id, value === 'unassigned' ? '' : value)}
+                      >
+                        <SelectTrigger className="mt-1">
+                          <SelectValue placeholder="Unassigned" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="unassigned">Unassigned</SelectItem>
+                          <SelectItem value="manager">Content Manager</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
