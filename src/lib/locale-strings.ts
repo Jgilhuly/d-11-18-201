@@ -43,7 +43,10 @@ export const englishStrings = {
     type: 'Type',
     description: 'Description',
     contentManager: 'Content Manager',
-    viewer: 'Team Member'
+    viewer: 'Team Member',
+    lightMode: 'Light Mode',
+    darkMode: 'Dark Mode',
+    switchTheme: 'Switch theme'
   },
   navigation: {
     dashboard: 'Dashboard',
@@ -375,7 +378,10 @@ export const spanishStrings = {
     type: 'Tipo',
     description: 'Descripción',
     contentManager: 'Gestor de Contenido',
-    viewer: 'Miembro del Equipo'
+    viewer: 'Miembro del Equipo',
+    lightMode: 'Modo Claro',
+    darkMode: 'Modo Oscuro',
+    switchTheme: 'Cambiar tema'
   },
   navigation: {
     dashboard: 'Panel de Control',
