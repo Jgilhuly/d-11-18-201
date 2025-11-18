@@ -97,6 +97,35 @@ export const updateUserRoleSchema = z.object({
   role: z.enum(['VIEWER', 'CONTENT_MANAGER']),
 })
 
+export const createBugSchema = z.object({
+  title: z.string()
+    .min(1, 'Title is required')
+    .max(200, 'Title must be less than 200 characters')
+    .trim(),
+  description: z.string()
+    .min(10, 'Description must be at least 10 characters')
+    .max(2000, 'Description must be less than 2000 characters')
+    .trim(),
+  priority: z.enum(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']),
+  browserDevice: z.string()
+    .max(200, 'Browser/device info must be less than 200 characters')
+    .trim()
+    .optional()
+    .nullable(),
+  affectedContentId: z.string().cuid('Invalid content ID').optional().nullable(),
+  reporterId: z.string().cuid('Invalid user ID'),
+})
+
+export const updateBugStatusSchema = z.object({
+  bugId: z.string().cuid('Invalid bug ID'),
+  status: z.enum(['OPEN', 'IN_PROGRESS', 'FIXED', 'VERIFIED', 'CLOSED']),
+})
+
+export const assignBugSchema = z.object({
+  bugId: z.string().cuid('Invalid bug ID'),
+  assignedToId: z.string().cuid('Invalid user ID').nullable(),
+})
+
 // Input sanitization helpers
 export function sanitizeString(input: string): string {
   return input

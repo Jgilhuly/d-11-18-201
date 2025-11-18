@@ -53,6 +53,23 @@ export interface Subscription {
   assignedUser?: Pick<User, 'id' | 'name' | 'email'> | null
 }
 
+export interface Bug {
+  id: string
+  title: string
+  description: string
+  priority: BugPriority
+  status: BugStatus
+  browserDevice: string | null
+  affectedContentId: string | null
+  reporterId: string
+  assignedToId: string | null
+  createdAt: Date
+  updatedAt: Date
+  reporter?: Pick<User, 'id' | 'name' | 'email'>
+  assignedTo?: Pick<User, 'id' | 'name' | 'email'> | null
+  affectedContent?: Pick<Content, 'id' | 'name' | 'type'> | null
+}
+
 // Enum types
 export type UserRole = 'VIEWER' | 'CONTENT_MANAGER'
 export type ContentRequestPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
@@ -61,6 +78,8 @@ export type ContentStatus = 'AVAILABLE' | 'FEATURED' | 'ARCHIVED' | 'REMOVED'
 export type ContentType = 'MOVIE' | 'TV_SERIES' | 'DOCUMENTARY' | 'SHORT_FILM' | 'SPECIAL' | 'ORIGINAL' | 'OTHER'
 export type ContentGenre = 'MOVIE' | 'SERIES' | 'DOCUMENTARY' | 'SHORT' | 'SPECIAL' | 'OTHER'
 export type ContentRating = 'G' | 'PG' | 'PG-13' | 'R' | 'TV-Y' | 'TV-Y7' | 'TV-G' | 'TV-PG' | 'TV-14' | 'TV-MA'
+export type BugPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+export type BugStatus = 'OPEN' | 'IN_PROGRESS' | 'FIXED' | 'VERIFIED' | 'CLOSED'
 
 // Extended user type for UI components
 export interface UserWithCounts extends Omit<User, 'contentRequests' | 'reviewedContentRequests' | 'content' | 'subscriptions'> {
@@ -127,6 +146,14 @@ export interface CreateUserFormData {
   password: string
 }
 
+export interface CreateBugFormData {
+  title: string
+  description: string
+  priority: BugPriority
+  browserDevice?: string
+  affectedContentId?: string
+}
+
 // Filter and sort types
 export interface ContentRequestFilters {
   status?: ContentRequestStatus
@@ -145,6 +172,17 @@ export interface ContentFilters {
   type?: ContentType
   genre?: ContentGenre
   assignedTo?: string
+  dateRange?: {
+    start: Date
+    end: Date
+  }
+}
+
+export interface BugFilters {
+  status?: BugStatus
+  priority?: BugPriority
+  assignedTo?: string
+  reporterId?: string
   dateRange?: {
     start: Date
     end: Date

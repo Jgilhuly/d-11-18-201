@@ -38,6 +38,10 @@ export const NOTIFICATION_MESSAGES = {
   USER_UPDATED: englishStrings.notifications.userUpdated,
   USER_ERROR: 'Error managing viewer',
   
+  BUG_CREATED: englishStrings.notifications.bugCreated,
+  BUG_UPDATED: englishStrings.notifications.bugUpdated,
+  BUG_ERROR: 'Error managing bug report',
+  
   LOGIN_ERROR: englishStrings.auth.loginError,
   LOGIN_SUCCESS: englishStrings.notifications.loginSuccess,
   LOGOUT_SUCCESS: englishStrings.notifications.logoutSuccess,

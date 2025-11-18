@@ -11,7 +11,8 @@ import {
   FilmIcon, 
   PlayIcon, 
   UsersIcon, 
-  SettingsIcon 
+  SettingsIcon,
+  AlertCircleIcon
 } from 'lucide-react'
 
 
@@ -21,6 +22,7 @@ interface NavigationStrings {
   content: string;
   users: string;
   settings: string;
+  bugs: string;
 }
 
 function getNavigationItems(navigationStrings: NavigationStrings, getLocalizedPath: (path: string) => string) {
@@ -28,6 +30,7 @@ function getNavigationItems(navigationStrings: NavigationStrings, getLocalizedPa
     { name: navigationStrings.dashboard, href: getLocalizedPath('/dashboard'), icon: HomeIcon },
     { name: navigationStrings.contentRequests, href: getLocalizedPath('/content-requests'), icon: FilmIcon },
     { name: navigationStrings.content, href: getLocalizedPath('/content'), icon: PlayIcon },
+    { name: navigationStrings.bugs, href: getLocalizedPath('/bugs'), icon: AlertCircleIcon },
     { name: navigationStrings.users, href: getLocalizedPath('/users'), icon: UsersIcon, adminOnly: true },
     { name: navigationStrings.settings, href: getLocalizedPath('/settings'), icon: SettingsIcon, adminOnly: true },
   ]

@@ -4,18 +4,21 @@ import { useCallback, useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getContentRequests } from '@/lib/actions/content-requests'
 import { getContent } from '@/lib/actions/content'
+import { getBugs } from '@/lib/actions/bugs'
 import { useAuth } from '@/contexts/AuthContext'
 import { useLocalizedStrings } from '@/contexts/LocaleContext'
 import { StatsSkeleton } from '@/components/ui/loading-skeletons'
 import { notifications } from '@/lib/notifications'
 
-import { ContentRequest, Content } from '@/lib/types'
+import { ContentRequest, Content, Bug } from '@/lib/types'
 
 interface DashboardStatsData {
   totalContentRequests: number
   pendingContentRequests: number
   totalContent: number
   featuredContent: number
+  totalBugs: number
+  openBugs: number
 }
 
 export function DashboardStats() {
@@ -27,6 +30,8 @@ export function DashboardStats() {
     pendingContentRequests: 0,
     totalContent: 0,
     featuredContent: 0,
+    totalBugs: 0,
+    openBugs: 0,
   })
   const [isLoading, setIsLoading] = useState(true)
 
@@ -34,19 +39,23 @@ export function DashboardStats() {
     if (!user) return
     
     try {
-      const [contentRequests, content] = await Promise.all([
+      const [contentRequests, content, bugs] = await Promise.all([
         getContentRequests(user.id, user.role),
         getContent(),
+        getBugs(user.id, user.role),
       ])
 
       const pendingRequests = contentRequests.filter((request: ContentRequest) => request.status === 'PENDING').length
       const featured = content.filter((item: Content) => item.status === 'FEATURED').length
+      const openBugCount = bugs.filter((bug: Bug) => bug.status === 'OPEN').length
 
       setStats({
         totalContentRequests: contentRequests.length,
         pendingContentRequests: pendingRequests,
         totalContent: content.length,
         featuredContent: featured,
+        totalBugs: bugs.length,
+        openBugs: openBugCount,
       })
     } catch (error) {
       console.error('Failed to load dashboard stats:', error)
@@ -63,11 +72,11 @@ export function DashboardStats() {
   }, [user, loadStats])
 
   if (isLoading) {
-    return <StatsSkeleton count={4} />
+    return <StatsSkeleton count={6} />
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">{dashboardStrings.totalContentRequests}</CardTitle>
@@ -112,6 +121,30 @@ export function DashboardStats() {
           <div className="text-2xl font-bold text-card-foreground">{stats.featuredContent}</div>
           <p className="text-xs text-muted-foreground">
             {stats.featuredContent === 0 ? dashboardStrings.noFeaturedContent : dashboardStrings.currentlyFeatured}
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium">Bug Reports</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-2xl font-bold text-card-foreground">{stats.totalBugs}</div>
+          <p className="text-xs text-muted-foreground">
+            {stats.totalBugs === 0 ? 'No bugs reported' : `${stats.openBugs} open`}
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium">Open Bugs</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-2xl font-bold text-card-foreground">{stats.openBugs}</div>
+          <p className="text-xs text-muted-foreground">
+            {stats.openBugs === 0 ? 'All bugs resolved' : `out of ${stats.totalBugs} total`}
           </p>
         </CardContent>
       </Card>

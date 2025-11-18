@@ -24,6 +24,8 @@ model User {
   reviewedContentRequests ContentRequest[]         @relation("ReviewedContentRequests")
   content                 Content[]                @relation("UserContent")
   subscriptions           Subscription[]          @relation("UserSubscriptions")
+  bugsReported            Bug[]                    @relation("UserBugsReported")
+  bugsAssigned            Bug[]                    @relation("UserBugsAssigned")
 
   @@map("users")
 }
@@ -61,6 +63,7 @@ model Content {
   createdAt       DateTime    @default(now()) @map("created_at")
 
   assignedUser   User?        @relation("UserContent", fields: [assignedUserId], references: [id])
+  bugs            Bug[]        @relation("BugContent")
 
   @@map("content")
 }
@@ -88,4 +91,23 @@ model Category {
   @@map("categories")
 }
 
+model Bug {
+  id                String    @id @default(cuid())
+  title             String
+  description       String
+  priority          String    @default("MEDIUM")
+  status            String    @default("OPEN")
+  browserDevice     String?   @map("browser_device")
+  affectedContentId String?   @map("affected_content_id")
+  reporterId        String    @map("reporter_id")
+  assignedToId      String?   @map("assigned_to_id")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  reporter         User      @relation("UserBugsReported", fields: [reporterId], references: [id])
+  assignedTo       User?     @relation("UserBugsAssigned", fields: [assignedToId], references: [id])
+  affectedContent  Content?  @relation("BugContent", fields: [affectedContentId], references: [id])
+
+  @@map("bugs")
+}
 

@@ -107,3 +107,25 @@ export const getContentTypes = (strings: { content: { typeMovie: string; typeTvS
     label: labelMap[type.value] || type.value
   }))
 }
+
+export const BUG_STATUSES = [
+  { value: 'OPEN', labelKey: 'statusOpen' as const, color: 'bg-red-500/20 text-red-400' },
+  { value: 'IN_PROGRESS', labelKey: 'statusInProgress' as const, color: 'bg-yellow-500/20 text-yellow-400' },
+  { value: 'FIXED', labelKey: 'statusFixed' as const, color: 'bg-green-500/20 text-green-400' },
+  { value: 'VERIFIED', labelKey: 'statusVerified' as const, color: 'bg-blue-500/20 text-blue-400' },
+  { value: 'CLOSED', labelKey: 'statusClosed' as const, color: 'bg-muted text-muted-foreground' },
+] as const
+
+export const getBugStatuses = (strings: { bugs: { openStatus: string; inProgressStatus: string; fixedStatus: string; verifiedStatus: string; closedStatus: string } }) => {
+  const labelMap: Record<string, string> = {
+    OPEN: strings.bugs.openStatus,
+    IN_PROGRESS: strings.bugs.inProgressStatus,
+    FIXED: strings.bugs.fixedStatus,
+    VERIFIED: strings.bugs.verifiedStatus,
+    CLOSED: strings.bugs.closedStatus
+  }
+  return BUG_STATUSES.map(status => ({
+    ...status,
+    label: labelMap[status.value] || status.value
+  }))
+}
