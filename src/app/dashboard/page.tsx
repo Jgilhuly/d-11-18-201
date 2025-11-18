@@ -3,6 +3,7 @@
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { DashboardStats } from '@/components/dashboard/DashboardStats'
+import { DashboardCharts } from '@/components/dashboard/DashboardCharts'
 import { QuickActions } from '@/components/dashboard/QuickActions'
 import { RecentContentRequests } from '@/components/dashboard/RecentContentRequests'
 import { useLocalizedStrings } from '@/contexts/LocaleContext'
@@ -24,6 +25,7 @@ export default function DashboardPage() {
           </div>
 
           <DashboardStats />
+          <DashboardCharts />
           <QuickActions />
           <RecentContentRequests />
         </div>

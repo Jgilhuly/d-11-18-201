@@ -42,6 +42,20 @@ export interface Content {
   assignedUser?: Pick<User, 'id' | 'name' | 'email'> | null
 }
 
+export interface ViewershipMetrics {
+  id: string
+  contentId: string
+  userId: string
+  views: number
+  watchTimeMinutes: number
+  completionRate: number
+  lastWatchedAt: Date
+  createdAt: Date
+  updatedAt: Date
+  content?: Pick<Content, 'id' | 'name' | 'type' | 'posterUrl'>
+  user?: Pick<User, 'id' | 'name' | 'email'>
+}
+
 export interface Subscription {
   id: string
   name: string
@@ -156,10 +170,10 @@ export interface CreateBugFormData {
 
 // Filter and sort types
 export interface ContentRequestFilters {
-  status?: ContentRequestStatus
-  priority?: ContentRequestPriority
-  category?: string
-  reviewedBy?: string
+  status?: ContentRequestStatus[]
+  priority?: ContentRequestPriority[]
+  category?: string[]
+  reviewedBy?: string[]
   viewerId?: string
   dateRange?: {
     start: Date

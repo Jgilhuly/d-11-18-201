@@ -26,6 +26,7 @@ model User {
   subscriptions           Subscription[]          @relation("UserSubscriptions")
   bugsReported            Bug[]                    @relation("UserBugsReported")
   bugsAssigned            Bug[]                    @relation("UserBugsAssigned")
+  viewershipMetrics       ViewershipMetrics[]      @relation("UserViewership")
 
   @@map("users")
 }
@@ -64,6 +65,7 @@ model Content {
 
   assignedUser   User?        @relation("UserContent", fields: [assignedUserId], references: [id])
   bugs            Bug[]        @relation("BugContent")
+  viewershipMetrics ViewershipMetrics[] @relation("ContentViewership")
 
   @@map("content")
 }
@@ -109,5 +111,23 @@ model Bug {
   affectedContent  Content?  @relation("BugContent", fields: [affectedContentId], references: [id])
 
   @@map("bugs")
+}
+
+model ViewershipMetrics {
+  id              String    @id @default(cuid())
+  contentId       String    @map("content_id")
+  userId          String    @map("user_id")
+  views           Int       @default(1)
+  watchTimeMinutes Int      @default(0) @map("watch_time_minutes")
+  completionRate  Float    @default(0) @map("completion_rate")
+  lastWatchedAt   DateTime  @default(now()) @map("last_watched_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  content         Content   @relation("ContentViewership", fields: [contentId], references: [id])
+  user            User      @relation("UserViewership", fields: [userId], references: [id])
+
+  @@unique([contentId, userId])
+  @@map("viewership_metrics")
 }
 
